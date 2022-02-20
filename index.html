@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="s-l400.png">
+    <title id="floydTitle">Floyd Clicker </title>
+  </head>
+  <body onload="startMusic();">
+    <canvas id="canvas" hidden></canvas>
+    <h1>FLOYD COINS: <span id="floyd">0</span></h1>
+    <img src="s-l400.png" class="img1" id="floyd1" onclick="floydUp(breath)" onclick="burh1">
+          <h2>Coin per sec: <span id="coinPerSec">0</span></h2>
+    <div class="container">
+              <table class="shop" onclick="buyBreath()">
+          <tr>
+            <td id="breath"> <img id="img" src="lungs.png"> </td>
+            <td id="nameAndCost">
+              <p>Breath</p>
+              <p><span id="breathCost">3 </span>Coins</p>
+            </td>
+          <td id="amount"><span id="breathAmount">0</span></td>
+        </tr>
+      </table>
+      <table class="shop" onclick="buyBreathMachine()">
+          <tr>
+            <td id="breatmachine"> <img id="img" src="respirator.png"> </td>
+            <td id="nameAndCost">
+              <p>Respirator</p>
+              <p><span id="upgradeCost">20 </span>Coins</p>
+            </td>
+          <td id="amount"><span id="breathMachineAmount">0</span></td>
+        </tr>
+      </table>
+      <table class="shop" onclick="buyPolice()">
+          <tr>
+            <td id="police"> <img id="img" src="police.png"> </td>
+            <td id="nameAndCost">
+              <p>Police</p>
+              <p><span id="policeCost">50 </span>Coins</p>
+            </td>
+          <td id="amount"><span id="policeAmount">0</span></td>
+        </tr>
+      </table>
+      <table class="shop" onclick="buyBLM()">
+          <tr>
+            <td id="blm"> <img id="img" src="blm.png"> </td>
+            <td id="nameAndCost">
+              <p>BLM</p>
+              <p><span id="blmCost">100 </span>Coins</p>
+            </td>
+          <td id="amount"><span id="blmAmount">0</span></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+  <style>
+
+    #sectionRight {
+      position: relative;
+    }
+
+    #canvas {
+
+    }
+
+    li {
+      list-style: none;
+    }
+
+    html {
+      background-image: url("R10961_image1.jpg");
+      background-size: 100px 100px
+    }
+
+    h1 {
+      font-family: "Comic Sans MS";
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    h2 {
+      font-family: "Comic Sans MS";
+      text-align: center;
+      }
+
+    p {
+      font-family: "Comic Sans MS";
+    }
+
+    td {
+      font-family: "Comic Sans MS";
+    }
+
+    .vaccine{
+      position: absolute;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      cursor: pointer;
+    }
+
+
+      .img1 {
+      transition-duration: 0.4;
+      cursor: pointer;
+      -webkit-transition: .5s ease;
+      margin-right: auto;
+      margin-left: auto;
+      position: relative;
+      display: block;
+      }
+
+
+    .img1:hover {
+      transform: scale(1.10)
+
+    }
+
+    .img1:active {
+      transform: scale(0.90)
+    }
+
+    .shop {
+      background-color: #572313;
+      width: 17%;
+      margin: 10px 0px 10px 0px;
+      cursor: pointer;
+      top: 1000px;
+    }
+
+    .shop #img {
+      height: 64px;
+      width: 64px;
+    }
+
+     .shop img {
+      width: 25%;
+      }
+
+      .shop #nameAndCost p {
+        width: 60%;
+        margin: 0px;
+      }
+
+      .container {
+        top: inherit;
+      }
+
+      .floyd {
+        width: 400px;
+      }
+
+  </style>
+  <script>
+
+
+
+      //floyd
+      var floyd = 0;
+
+      var speed = 200;
+
+      var breathAmount = 0;
+      var breathMachineAmount = 0;
+      var policeAmount =  0;
+      var blmAmount = 0;
+
+
+      var breath = 1;
+      var breathMachine = 0;
+      var police = 0;
+      var blm = 0;
+
+      var upgradeCost = 20;
+      var breathCost = 3;
+      var policeCost = 50;
+      var blmCost = 100;
+      var myMusic;
+      var mySound;
+
+      var game = breathMachine + police + blm;
+
+      function startMusic() {
+        mySound = new sound("yt1s.com - Juice WRLD  Wishing Well Official Music Video.mp3");
+        mySound.play()
+      };
+
+      function floydUp(breath) {
+        floyd = floyd + breath;
+        document.getElementById("floyd").innerHTML = floyd;
+      }
+
+      function sound(src) {
+        this.sound = document.createElement("audio");
+        this.sound.src = src;
+        this.sound.setAttribute("preload", "auto");
+        this.sound.setAttribute("controls", "none");
+        this.sound.style.display = "none";
+        document.body.appendChild(this.sound);
+        this.play = function(){
+          this.sound.play();
+        }
+        this.stop = function(){
+          this.sound.pause();
+        }
+      }
+
+
+      function buyBreath() {
+        if (floyd >= breathCost) {
+          floyd = floyd - breathCost;
+          breath = breath + 1;
+          breathAmount = breathAmount + 1;
+          breathCost = Math.round(breathCost * 1.75);
+
+          document.getElementById("floyd").innerHTML = floyd;
+          document.getElementById("breathCost").innerHTML = breathCost + " ";
+          document.getElementById("breathAmount").innerHTML = breathAmount;
+          document.getElementById("floydTitle").innerHTML = "Floyd Clicker " + floyd + " coins";
+        }
+      }
+
+      function buyBreathMachine() {
+        if (floyd >= upgradeCost) {
+          floyd = floyd - upgradeCost;
+          breathMachine = breathMachine + 1;
+          breathMachineAmount = breathMachineAmount + 1;
+          upgradeCost = Math.round(upgradeCost * 1.15);
+
+          document.getElementById("floyd").innerHTML = floyd;
+          document.getElementById("upgradeCost").innerHTML = upgradeCost + " ";
+          document.getElementById("breathMachineAmount").innerHTML = breathMachineAmount;
+          document.getElementById("floydTitle").innerHTML = "Floyd Clicker " + floyd + " coins";
+          updatePerSec();
+        }
+      }
+
+      function buyPolice() {
+        if (floyd >= policeCost) {
+          floyd = floyd - policeCost;
+          police = police + 5;
+          policeAmount = policeAmount + 1;
+          policeCost = Math.round(policeCost * 1.25);
+
+          document.getElementById("floyd").innerHTML = floyd;
+          document.getElementById("policeCost").innerHTML = policeCost + " ";
+          document.getElementById("policeAmount").innerHTML = policeAmount;
+          document.getElementById("floydTitle").innerHTML = "Floyd Clicker " + floyd + " coins";
+          updatePerSec();
+      	}
+      }
+      function buyBLM() {
+        if (floyd >= blmCost) {
+          floyd = floyd - blmCost;
+          blmAmount = blmAmount + 1;
+          blm = blm + 20;
+          blmCost = Math.round(blmCost * 1.55);
+          document.getElementById("floyd").innerHTML = floyd;
+          document.getElementById("blmCost").innerHTML = blmCost + " ";
+          document.getElementById("blmAmount").innerHTML = blmAmount;
+          document.getElementById("floydTitle").innerHTML = "Floyd Clicker " + floyd + " coins";
+          updatePerSec();
+
+      }
+    }
+      function updatePerSec() {
+        coinPerSec = breathMachine + police + blm;
+        document.getElementById("coinPerSec").innerHTML = coinPerSec;
+      }
+
+      setInterval(function() {
+        floyd = floyd + breathMachine;
+        floyd = floyd + police;
+        floyd = floyd + blm;
+        document.getElementById("floyd").innerHTML = floyd;
+      }, 1000);
+
+      setInterval(function() {
+        document.getElementById("floydTitle").innerHTML = "Floyd Clicker " + floyd + " coins";
+      },1);
+
+  </script>
+</html>
